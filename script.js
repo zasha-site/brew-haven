@@ -89,6 +89,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // clicking the ♡ on any card adds/removes it from the favorites list
     // shown alongside the order ticket inside the cart drawer
 
+    function getCardImage(card) {
+        const box = card.querySelector(".image-box");
+        if (!box || box.classList.contains("img-fallback")) return null;
+        const img = box.querySelector(".img-front") || box.querySelector("img");
+        return img ? img.getAttribute("src") : null;
+    }
+
+    function thumbHTML(img, name) {
+        return img
+            ? `<img class="item-thumb" src="${img}" alt="${name}">`
+            : `<span class="item-thumb item-thumb-fallback">☕</span>`;
+    }
+
     function renderFavorites() {
         if (favorites.length === 0) {
             favItemsEl.innerHTML = '<li class="empty-state">No favorites yet. Tap ♡ on a card.</li>';
@@ -97,10 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         favItemsEl.innerHTML = favorites.map((item, idx) => `
             <li>
-                <span>${item.name}</span>
+                <span style="display:flex; align-items:center; gap:0.6rem;">
+                    ${thumbHTML(item.img, item.name)}
+                    ${item.name}
+                </span>
                 <span style="display:flex; align-items:center; gap:0.5rem;">
                     $${item.price.toFixed(2)}
-                    <button class="item-add" data-name="${item.name}" data-price="${item.price}">Add</button>
+                    <button class="item-add" data-name="${item.name}" data-price="${item.price}" data-img="${item.img || ''}">Add</button>
                     <button class="item-remove" data-idx="${idx}" aria-label="Remove ${item.name}">✕</button>
                 </span>
             </li>
@@ -119,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         favItemsEl.querySelectorAll(".item-add").forEach(btn => {
             btn.addEventListener("click", () => {
-                addToCart(btn.dataset.name, parseFloat(btn.dataset.price));
+                addToCart(btn.dataset.name, parseFloat(btn.dataset.price), btn.dataset.img || null);
                 showToast(btn.dataset.name + " added to your order");
             });
         });
@@ -140,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const card = btn.closest(".card");
             const name = card.querySelector("h3").dataset.original;
             const price = parseFloat(card.dataset.price);
+            const img = getCardImage(card);
             const existingIdx = favorites.findIndex(f => f.name === name);
 
             if (existingIdx > -1) {
@@ -147,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.classList.remove("active");
                 btn.textContent = "♡";
             } else {
-                favorites.push({ name, price });
+                favorites.push({ name, price, img });
                 btn.classList.add("active");
                 btn.textContent = "♥";
             }
@@ -189,7 +206,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         receiptItemsEl.innerHTML = cart.map((item, idx) => `
             <li>
-                <span>${item.qty} × ${item.name}</span>
+                <span style="display:flex; align-items:center; gap:0.6rem;">
+                    ${thumbHTML(item.img, item.name)}
+                    ${item.qty} × ${item.name}
+                </span>
                 <span style="display:flex; align-items:center; gap:0.5rem;">
                     $${(item.price * item.qty).toFixed(2)}
                     <button class="item-remove" data-idx="${idx}" aria-label="Remove ${item.name}">✕</button>
@@ -206,10 +226,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function addToCart(name, price) {
+    function addToCart(name, price, img) {
         const existing = cart.find(i => i.name === name);
         if (existing) existing.qty += 1;
-        else cart.push({ name, price, qty: 1 });
+        else cart.push({ name, price, qty: 1, img: img || null });
         renderCart();
     }
 
@@ -218,8 +238,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const card = btn.closest(".card");
             const name = card.querySelector("h3").dataset.original;
             const price = parseFloat(card.dataset.price);
+            const img = getCardImage(card);
 
-            addToCart(name, price);
+            addToCart(name, price, img);
             showToast(name + " added to your order");
 
             btn.classList.add("added");
