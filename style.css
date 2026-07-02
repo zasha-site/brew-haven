@@ -242,6 +242,16 @@ img { display: block; max-width: 100%; }
 }
 .checkout-btn:hover { background: var(--accent); }
 
+/* ============ Mini thumbnails in cart / favorites lists ============ */
+.item-thumb {
+    width: 2rem; height: 2rem; border-radius: 6px;
+    object-fit: cover; flex-shrink: 0;
+}
+.item-thumb-fallback {
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg-alt); font-size: 1rem;
+}
+
 /* ============ Favorites Panel ============ */
 .fav-panel .receipt-items .item-remove { color: var(--ink-soft); }
 .fav-panel .item-add {
