@@ -243,13 +243,19 @@ img { display: block; max-width: 100%; }
 .checkout-btn:hover { background: var(--accent); }
 
 /* ============ Mini thumbnails in cart / favorites lists ============ */
-.item-thumb {
-    width: 2rem; height: 2rem; border-radius: 6px;
-    object-fit: cover; flex-shrink: 0;
+.receipt-items .item-thumb {
+    width: 2rem !important; height: 2rem !important;
+    min-width: 2rem !important; max-width: 2rem !important;
+    border-radius: 6px !important;
+    object-fit: cover !important; flex-shrink: 0 !important;
+    display: inline-block;
 }
-.item-thumb-fallback {
+.receipt-items .item-thumb-fallback {
     display: flex; align-items: center; justify-content: center;
     background: var(--bg-alt); font-size: 1rem;
+}
+.receipt-items li > span:first-child {
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0;
 }
 
 /* ============ Favorites Panel ============ */
