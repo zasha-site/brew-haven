@@ -39,6 +39,17 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast._t = setTimeout(() => toast.classList.remove("show"), 2200);
     }
 
+    /* ---------- Image toggle (click to swap front/back photo) ---------- */
+    document.querySelectorAll(".image-box").forEach(box => {
+        // only toggle if there's an actual second image (skip single-image / fallback boxes)
+        if (box.classList.contains("single")) return;
+        box.addEventListener("click", (e) => {
+            // avoid triggering when clicking the fav heart button on top of the image
+            if (e.target.closest(".fav")) return;
+            box.classList.toggle("flipped");
+        });
+    });
+
     /* ---------- Search filter + highlight ---------- */
     const searchInput = document.getElementById("search");
     const allCards = document.querySelectorAll(".card");
