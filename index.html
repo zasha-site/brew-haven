@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brew Haven — Fresh Coffee Every Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div class="loader">
+    <div class="loader-cup">
+        <span class="steam s1"></span>
+        <span class="steam s2"></span>
+        <span class="steam s3"></span>
+    </div>
+    <h1>Brew Haven</h1>
+</div>
+
+<header class="navbar">
+    <div class="logo">
+        <span class="logo-mark">☕</span> Brew Haven
+    </div>
+
+    <div class="search-wrap">
+        <input type="text" id="search" placeholder="Search coffee...">
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#hot-drinks">Hot Coffee</a></li>
+            <li><a href="#cold-drinks">Cold Drinks</a></li>
+            <li><a href="#desserts">Desserts</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="icons">
+        <button id="darkMode" aria-label="Toggle dark mode">🌙</button>
+        <button class="cart" id="cartToggle" aria-label="Open cart">
+            🧾 <span id="cart-count">0</span>
+        </button>
+    </div>
+</header>
+
+<!-- Cart Drawer: Order Ticket + Favorites side by side -->
+<aside class="cart-drawer" id="cartDrawer">
+    <div class="drawer-panels">
+
+        <div class="receipt fav-panel">
+            <div class="receipt-head">
+                <p class="receipt-title">Brew Haven</p>
+                <p class="receipt-sub">favorites</p>
+                <p class="receipt-line">— — — — — — — — — — — —</p>
+            </div>
+            <ul class="receipt-items" id="favItems">
+                <li class="empty-state">No favorites yet. Tap ♡ on a card.</li>
+            </ul>
+        </div>
+
+        <div class="receipt">
+            <div class="receipt-head">
+                <p class="receipt-title">Brew Haven</p>
+                <p class="receipt-sub">order ticket</p>
+                <p class="receipt-line">— — — — — — — — — — — —</p>
+            </div>
+            <ul class="receipt-items" id="receiptItems">
+                <li class="empty-state">No items yet. Add something good.</li>
+            </ul>
+            <div class="receipt-foot">
+                <p class="receipt-line">— — — — — — — — — — — —</p>
+                <div class="receipt-total">
+                    <span>Total</span>
+                    <span id="cart-total">$0.00</span>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn">Place Order</button>
+            </div>
+        </div>
+
+    </div>
+    <button class="cart-close" id="cartClose" aria-label="Close cart">✕</button>
+</aside>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+
+<!-- Hero -->
+<section id="home" class="hero">
+    <div class="hero-text">
+        <p class="eyebrow">Brewed daily, since sunrise</p>
+        <h1>Premium Coffee<br>Premium People</h1>
+        <p class="hero-desc">Enjoy the best coffee made from premium beans with a cozy atmosphere and delicious desserts.</p>
+        <div class="hero-actions">
+            <a href="#hot-drinks" class="btn btn-primary">Explore Menu</a>
+            <a href="#contact" class="btn btn-ghost">Visit Us</a>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="cup-illustration">
+            <div class="cup-steam st1"></div>
+            <div class="cup-steam st2"></div>
+            <div class="cup-body"></div>
+            <div class="cup-handle"></div>
+            <div class="cup-shadow"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Hot Coffee -->
+<section id="hot-drinks" class="menu-section">
+    <div class="section-head">
+        <p class="eyebrow">01 — Hot Coffee</p>
+        <h2>Hot Coffee</h2>
+    </div>
+    <div class="menu-container">
+
+        <div class="card" data-name="latte" data-price="5.99">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/latte1.jpg" class="img-front" alt="Latte" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/latte2.jpg" class="img-back" alt="Latte" onerror="this.style.display='none'">
+            <span class="image-fallback-name">latte1.jpg</span>
+            </div>
+            <h3>Latte</h3>
+            <p>Fresh milk with rich espresso.</p>
+            <div class="card-foot">
+                <span class="price">$5.99</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="cappuccino" data-price="6.49">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/cappuccino1.jpg" class="img-front" alt="Cappuccino" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/cappuccino2.jpg" class="img-back" alt="Cappuccino" onerror="this.style.display='none'">
+            <span class="image-fallback-name">cappuccino1.jpg</span>
+            </div>
+            <h3>Cappuccino</h3>
+            <p>Classic Italian coffee.</p>
+            <div class="card-foot">
+                <span class="price">$6.49</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="mocha" data-price="6.99">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/mocha1.jpg" class="img-front" alt="Mocha" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/mocha2.jpg" class="img-back" alt="Mocha" onerror="this.style.display='none'">
+            <span class="image-fallback-name">mocha1.jpg</span>
+            </div>
+            <h3>Mocha</h3>
+            <p>Chocolate and espresso.</p>
+            <div class="card-foot">
+                <span class="price">$6.99</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="espresso" data-price="4.50">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/espresso1.jpg" class="img-front" alt="Espresso" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/espresso2.jpg" class="img-back" alt="Espresso" onerror="this.style.display='none'">
+            <span class="image-fallback-name">espresso1.jpg</span>
+            </div>
+            <h3>Espresso</h3>
+            <p>Strong coffee shot.</p>
+            <div class="card-foot">
+                <span class="price">$4.50</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="americano" data-price="4.99">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/americano1.jpg" class="img-front" alt="Americano" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/americano2.jpg" class="img-back" alt="Americano" onerror="this.style.display='none'">
+            <span class="image-fallback-name">americano1.jpg</span>
+            </div>
+            <h3>Americano</h3>
+            <p>Espresso, hot water, simple and bold.</p>
+            <div class="card-foot">
+                <span class="price">$4.99</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="macchiato" data-price="5.49">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/macchiato1.jpg" class="img-front" alt="Macchiato" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/macchiato2.jpg" class="img-back" alt="Macchiato" onerror="this.style.display='none'">
+            <span class="image-fallback-name">macchiato1.jpg</span>
+            </div>
+            <h3>Macchiato</h3>
+            <p>Espresso marked with a dash of foam.</p>
+            <div class="card-foot">
+                <span class="price">$5.49</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="flat white" data-price="5.99">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/flatwhite1.jpg" class="img-front" alt="Flat White" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/flatwhite2.jpg" class="img-back" alt="Flat White" onerror="this.style.display='none'">
+            <span class="image-fallback-name">flatwhite1.jpg</span>
+            </div>
+            <h3>Flat White</h3>
+            <p>Velvety microfoam, double shot.</p>
+            <div class="card-foot">
+                <span class="price">$5.99</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="hot chocolate" data-price="5.25">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/hotchocolate1.jpg" class="img-front" alt="Hot Chocolate" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/hotchocolate2.jpg" class="img-back" alt="Hot Chocolate" onerror="this.style.display='none'">
+            <span class="image-fallback-name">hotchocolate1.jpg</span>
+            </div>
+            <h3>Hot Chocolate</h3>
+            <p>Rich melted chocolate, whipped cream.</p>
+            <div class="card-foot">
+                <span class="price">$5.25</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Cold Drinks -->
+<section id="cold-drinks" class="menu-section alt">
+    <div class="section-head">
+        <p class="eyebrow">02 — Cold Drinks</p>
+        <h2>Cold Drinks</h2>
+    </div>
+    <div class="menu-container">
+
+        <div class="card" data-name="iced latte" data-price="6.25">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/icedlatte1.jpg" class="img-front" alt="Iced Latte" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/icedlatte2.jpg" class="img-back" alt="Iced Latte" onerror="this.style.display='none'">
+                <span class="image-fallback-name">icedlatte1.jpg / icedlatte2.jpg</span>
+            </div>
+            <h3>Iced Latte</h3>
+            <p>Smooth espresso over cold milk.</p>
+            <div class="card-foot">
+                <span class="price">$6.25</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="iced coffee" data-price="5.50">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/icedcoffee1.jpg" class="img-front" alt="Iced Coffee" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/icedcoffee2.jpg" class="img-back" alt="Iced Coffee" onerror="this.style.display='none'">
+            <span class="image-fallback-name">icedcoffee1.jpg</span>
+            </div>
+            <h3>Iced Coffee</h3>
+            <p>Classic black coffee, served cold.</p>
+            <div class="card-foot">
+                <span class="price">$5.50</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="iced americano" data-price="5.25">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/icedamericano1.jpg" class="img-front" alt="Iced Americano" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/icedamericano2.jpg" class="img-back" alt="Iced Americano" onerror="this.style.display='none'">
+            <span class="image-fallback-name">icedamericano1.jpg</span>
+            </div>
+            <h3>Iced Americano</h3>
+            <p>Bold espresso, water, plenty of ice.</p>
+            <div class="card-foot">
+                <span class="price">$5.25</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="iced matcha latte" data-price="6.75">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/icedmatcha1.jpg" class="img-front" alt="Iced Matcha Latte" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/icedmatcha2.jpg" class="img-back" alt="Iced Matcha Latte" onerror="this.style.display='none'">
+            <span class="image-fallback-name">icedmatcha1.jpg</span>
+            </div>
+            <h3>Iced Matcha Latte</h3>
+            <p>Earthy matcha, cold milk, light sweetness.</p>
+            <div class="card-foot">
+                <span class="price">$6.75</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="vanilla cold brew" data-price="6.50">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/vanillacoldbrew1.jpg" class="img-front" alt="Vanilla Cold Brew" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/vanillacoldbrew2.jpg" class="img-back" alt="Vanilla Cold Brew" onerror="this.style.display='none'">
+            <span class="image-fallback-name">vanillacoldbrew1.jpg</span>
+            </div>
+            <h3>Vanilla Cold Brew</h3>
+            <p>Slow-steeped, topped with sweet cream.</p>
+            <div class="card-foot">
+                <span class="price">$6.50</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="iced caramel macchiato" data-price="6.99">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/icedcaramelmacchiato1.jpg" class="img-front" alt="Iced Caramel Macchiato" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/icedcaramelmacchiato2.jpg" class="img-back" alt="Iced Caramel Macchiato" onerror="this.style.display='none'">
+            <span class="image-fallback-name">icedcaramelmacchiato1.jpg</span>
+            </div>
+            <h3>Iced Caramel Macchiato</h3>
+            <p>Vanilla, milk, espresso, caramel drizzle.</p>
+            <div class="card-foot">
+                <span class="price">$6.99</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="strawberry refresher" data-price="5.75">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/strawberryrefresher1.jpg" class="img-front" alt="Strawberry Refresher" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/strawberryrefresher2.jpg" class="img-back" alt="Strawberry Refresher" onerror="this.style.display='none'">
+            <span class="image-fallback-name">strawberryrefresher1.jpg</span>
+            </div>
+            <h3>Strawberry Refresher</h3>
+            <p>Fruity, light, no coffee — just refreshing.</p>
+            <div class="card-foot">
+                <span class="price">$5.75</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="cold brew" data-price="5.75">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/coldbrew1.jpg" class="img-front" alt="Cold Brew" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/coldbrew2.jpg" class="img-back" alt="Cold Brew" onerror="this.style.display='none'">
+                <span class="image-fallback-name">coldbrew1.jpg / coldbrew2.jpg</span>
+            </div>
+            <h3>Cold Brew</h3>
+            <p>Steeped slow for 18 hours.</p>
+            <div class="card-foot">
+                <span class="price">$5.75</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="frappe" data-price="6.99">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/frappe1.jpg" class="img-front" alt="Frappé" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/frappe2.jpg" class="img-back" alt="Frappé" onerror="this.style.display='none'">
+                <span class="image-fallback-name">frappe1.jpg / frappe2.jpg</span>
+            </div>
+            <h3>Frappé</h3>
+            <p>Blended, whipped, ice-cold.</p>
+            <div class="card-foot">
+                <span class="price">$6.99</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="iced mocha" data-price="7.25">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/icedmocha1.jpg" class="img-front" alt="Iced Mocha" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/icedmocha2.jpg" class="img-back" alt="Iced Mocha" onerror="this.style.display='none'">
+                <span class="image-fallback-name">icedmocha1.jpg / icedmocha2.jpg</span>
+            </div>
+            <h3>Iced Mocha</h3>
+            <p>Cold chocolate espresso treat.</p>
+            <div class="card-foot">
+                <span class="price">$7.25</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Desserts -->
+<section id="desserts" class="menu-section">
+    <div class="section-head">
+        <p class="eyebrow">03 — Desserts</p>
+        <h2>Desserts</h2>
+    </div>
+    <div class="menu-container">
+
+        <div class="card" data-name="croissant" data-price="3.99">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/croissant1.jpg" class="img-front" alt="Butter Croissant" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/croissant2.jpg" class="img-back" alt="Butter Croissant" onerror="this.style.display='none'">
+                <span class="image-fallback-name">croissant1.jpg / croissant2.jpg</span>
+            </div>
+            <h3>Butter Croissant</h3>
+            <p>Flaky, golden, baked fresh.</p>
+            <div class="card-foot">
+                <span class="price">$3.99</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="cheesecake" data-price="5.50">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/cheesecake1.jpg" class="img-front" alt="Cheesecake" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/cheesecake2.jpg" class="img-back" alt="Cheesecake" onerror="this.style.display='none'">
+                <span class="image-fallback-name">cheesecake1.jpg / cheesecake2.jpg</span>
+            </div>
+            <h3>Cheesecake</h3>
+            <p>Creamy, with a biscuit base.</p>
+            <div class="card-foot">
+                <span class="price">$5.50</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="brownie" data-price="4.25">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/brownie1.jpg" class="img-front" alt="Fudge Brownie" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/brownie2.jpg" class="img-back" alt="Fudge Brownie" onerror="this.style.display='none'">
+                <span class="image-fallback-name">brownie1.jpg / brownie2.jpg</span>
+            </div>
+            <h3>Fudge Brownie</h3>
+            <p>Dense, rich, double chocolate.</p>
+            <div class="card-foot">
+                <span class="price">$4.25</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="cinnamon roll" data-price="4.75">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/cinnamonroll1.jpg" class="img-front" alt="Cinnamon Roll" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/cinnamonroll2.jpg" class="img-back" alt="Cinnamon Roll" onerror="this.style.display='none'">
+                <span class="image-fallback-name">cinnamonroll1.jpg / cinnamonroll2.jpg</span>
+            </div>
+            <h3>Cinnamon Roll</h3>
+            <p>Warm, glazed, comforting.</p>
+            <div class="card-foot">
+                <span class="price">$4.75</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="tiramisu" data-price="5.99">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/tiramisu1.jpg" class="img-front" alt="Tiramisu" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/tiramisu2.jpg" class="img-back" alt="Tiramisu" onerror="this.style.display='none'">
+            <span class="image-fallback-name">tiramisu1.jpg</span>
+            </div>
+            <h3>Tiramisu</h3>
+            <p>Espresso-soaked layers, mascarpone cream.</p>
+            <div class="card-foot">
+                <span class="price">$5.99</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="chocolate chip cookie" data-price="3.50">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/cookie1.jpg" class="img-front" alt="Chocolate Chip Cookie" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/cookie2.jpg" class="img-back" alt="Chocolate Chip Cookie" onerror="this.style.display='none'">
+            <span class="image-fallback-name">cookie1.jpg</span>
+            </div>
+            <h3>Chocolate Chip Cookie</h3>
+            <p>Crisp edges, soft chewy center.</p>
+            <div class="card-foot">
+                <span class="price">$3.50</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="carrot cake" data-price="5.25">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/carrotcake1.jpg" class="img-front" alt="Carrot Cake" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/carrotcake2.jpg" class="img-back" alt="Carrot Cake" onerror="this.style.display='none'">
+            <span class="image-fallback-name">carrotcake1.jpg</span>
+            </div>
+            <h3>Carrot Cake</h3>
+            <p>Spiced, moist, cream cheese frosting.</p>
+            <div class="card-foot">
+                <span class="price">$5.25</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="blueberry muffin" data-price="4.25">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/blueberrymuffin1.jpg" class="img-front" alt="Blueberry Muffin" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/blueberrymuffin2.jpg" class="img-back" alt="Blueberry Muffin" onerror="this.style.display='none'">
+            <span class="image-fallback-name">blueberrymuffin1.jpg</span>
+            </div>
+            <h3>Blueberry Muffin</h3>
+            <p>Soft crumb, bursting with berries.</p>
+            <div class="card-foot">
+                <span class="price">$4.25</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="glazed donut" data-price="3.75">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/glazeddonut1.jpg" class="img-front" alt="Glazed Donut" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/glazeddonut2.jpg" class="img-back" alt="Glazed Donut" onerror="this.style.display='none'">
+            <span class="image-fallback-name">glazeddonut1.jpg</span>
+            </div>
+            <h3>Glazed Donut</h3>
+            <p>Light, fluffy, classic sweet glaze.</p>
+            <div class="card-foot">
+                <span class="price">$3.75</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-name="chocolate macaron" data-price="3.99">
+            <button class="fav" aria-label="Add to favorites">♡</button>
+            <div class="image-box">
+                <img src="images/chocolatemacaron1.jpg" class="img-front" alt="Chocolate Macaron" onerror="this.parentElement.classList.add('img-fallback')">
+                <img src="images/chocolatemacaron2.jpg" class="img-back" alt="Chocolate Macaron" onerror="this.style.display='none'">
+            <span class="image-fallback-name">chocolatemacaron1.jpg</span>
+            </div>
+            <h3>Chocolate Macaron</h3>
+            <p>Crisp shell, soft ganache center.</p>
+            <div class="card-foot">
+                <span class="price">$3.99</span>
+                <div class="buttons">
+                    <button class="add-cart">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Reviews -->
+<section id="reviews" class="reviews-section">
+    <div class="section-head">
+        <p class="eyebrow">04 — Reviews</p>
+        <h2>What People Say</h2>
+    </div>
+    <div class="reviews-container">
+        <div class="review-card">
+            <p class="stars">★★★★★</p>
+            <p class="review-text">"Best latte in the city, hands down. The space is calm enough to actually get work done."</p>
+            <p class="review-author">— Mona K.</p>
+        </div>
+        <div class="review-card">
+            <p class="stars">★★★★★</p>
+            <p class="review-text">"Their cold brew is dangerously good. I've become a regular in two weeks."</p>
+            <p class="review-author">— Omar S.</p>
+        </div>
+        <div class="review-card">
+            <p class="stars">★★★★☆</p>
+            <p class="review-text">"Cozy corner, friendly staff, and the cinnamon roll alone is worth the visit."</p>
+            <p class="review-author">— Laila A.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact-section">
+    <div class="contact-grid">
+        <div class="contact-info">
+            <p class="eyebrow">05 — Contact</p>
+            <h2>Visit Brew Haven</h2>
+            <p class="contact-line">📍 14 Roastery Street, Downtown</p>
+            <p class="contact-line">🕐 Open daily, 7am – 10pm</p>
+            <p class="contact-line">📞 +20 100 123 4567</p>
+        </div>
+        <form class="contact-form" id="contactForm">
+            <input type="text" placeholder="Your name" required>
+            <input type="email" placeholder="Your email" required>
+            <textarea placeholder="Your message" rows="4" required></textarea>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<footer class="site-footer">
+    <p>☕ Brew Haven — Fresh Coffee Every Day</p>
+    <p class="footer-small">© 2026 Brew Haven. All rights reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
