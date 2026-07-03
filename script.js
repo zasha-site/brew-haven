@@ -137,6 +137,11 @@ document.addEventListener("DOMContentLoaded", () => {
             btn.addEventListener("click", () => {
                 addToCart(btn.dataset.name, parseFloat(btn.dataset.price), btn.dataset.img || null);
                 showToast(btn.dataset.name + " added to your order");
+
+                const idx = favorites.findIndex(f => f.name === btn.dataset.name);
+                if (idx > -1) favorites.splice(idx, 1);
+                renderFavorites();
+                syncFavButtons();
             });
         });
     }
