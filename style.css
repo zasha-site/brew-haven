@@ -277,28 +277,27 @@ img { display: block; max-width: 100%; }
 }
 
 /* ============ Hero ============ */
-.hero { padding: 4vh 4vw 8vh; max-width: 1300px; margin: 0 auto; }
+.hero { padding: 0; max-width: none; margin: 0; }
 
 .hero-media {
-    position: relative; width: 100%; aspect-ratio: 1381 / 900;
-    border-radius: 26px; overflow: hidden;
-    box-shadow: 0 30px 70px rgba(90, 58, 34, 0.22);
+    position: relative; width: 100%; height: 92vh; min-height: 560px;
+    border-radius: 0; overflow: hidden; box-shadow: none;
 }
 .hero-media img { width: 100%; height: 100%; object-fit: cover; }
 .hero-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(20,14,10,0.55) 0%, rgba(20,14,10,0.25) 38%, rgba(20,14,10,0.55) 100%);
+    background: linear-gradient(90deg, rgba(20,14,10,0.05) 0%, rgba(20,14,10,0.05) 45%, rgba(20,14,10,0.55) 72%, rgba(20,14,10,0.6) 100%);
 }
 
 .hero-text {
     position: absolute; inset: 0; z-index: 2;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; padding: 2rem;
+    display: flex; flex-direction: column; align-items: flex-end; justify-content: center;
+    text-align: right; padding: 2rem 6vw;
 }
 .hero-text .eyebrow { color: #F4E3C4; }
-.hero-text h1 { color: #fff; font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1.08; margin-bottom: 1.1rem; text-shadow: 0 8px 30px rgba(0,0,0,0.35); }
-.hero-desc { color: #F1E7DA; max-width: 480px; font-size: 1.02rem; margin-bottom: 1.8rem; }
-.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.hero-text h1 { color: #fff; font-size: clamp(2.1rem, 4.4vw, 3.4rem); line-height: 1.08; margin-bottom: 1.1rem; text-shadow: 0 8px 30px rgba(0,0,0,0.4); max-width: 480px; }
+.hero-desc { color: #F1E7DA; max-width: 400px; font-size: 1rem; margin-bottom: 1.8rem; }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: flex-end; }
 .hero-actions .btn-ghost { border-color: #fff; color: #fff; }
 .hero-actions .btn-ghost:hover { background: #fff; color: var(--ink); }
 
@@ -313,6 +312,14 @@ img { display: block; max-width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
     .hero-fade { animation: none; opacity: 1; transform: none; }
+}
+
+@media (max-width: 720px) {
+    .hero-media { height: 100vh; }
+    .hero-text { align-items: center; text-align: center; padding: 2rem 1.4rem; }
+    .hero-text h1, .hero-desc { max-width: 100%; }
+    .hero-actions { justify-content: center; }
+    .hero-overlay { background: linear-gradient(180deg, rgba(20,14,10,0.3) 0%, rgba(20,14,10,0.55) 55%, rgba(20,14,10,0.65) 100%); }
 }
 
 /* ============ Menu Sections ============ */
