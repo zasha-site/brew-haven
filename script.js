@@ -381,7 +381,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
 
     revealTargets.forEach(el => revealObserver.observe(el));
-    imageRevealTargets.forEach(el => revealObserver.observe(el));
+
+    // Images: toggle in/out every time they enter or leave the viewport,
+    // in either scroll direction (up or down)
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            entry.target.classList.toggle("in-view", entry.isIntersecting);
+        });
+    }, { threshold: 0.15 });
+
+    imageRevealTargets.forEach(el => imageObserver.observe(el));
 
     /* ---------- init ---------- */
     renderCart();
