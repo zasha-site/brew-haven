@@ -360,9 +360,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ---------- Scroll reveal (dynamic entrance as sections come into view) ---------- */
     const revealTargets = document.querySelectorAll(
-        ".section-head, .card, .review-card, .contact-info, .contact-form, .space-photo, .service-card"
+        ".section-head, .card, .review-card, .contact-info, .contact-form, .service-card"
     );
     revealTargets.forEach(el => el.classList.add("reveal"));
+
+    // Images themselves get a bolder, distinct "flying in" entrance
+    const imageRevealTargets = document.querySelectorAll(".image-box, .service-media, .hero-media, .space-photo");
+    imageRevealTargets.forEach((el, i) => {
+        el.classList.add("reveal-img");
+        el.style.setProperty("--img-delay", (i % 4) * 90 + "ms");
+    });
 
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -374,6 +381,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
 
     revealTargets.forEach(el => revealObserver.observe(el));
+    imageRevealTargets.forEach(el => revealObserver.observe(el));
 
     /* ---------- init ---------- */
     renderCart();
