@@ -448,8 +448,14 @@ html.loading, html.loading body { overflow: hidden; height: 100%; }
 .contact-map {
     margin-top: 1.6rem; border-radius: var(--radius-sm); overflow: hidden;
     border: 1px solid var(--line); box-shadow: var(--shadow-sm, 0 6px 18px rgba(0,0,0,0.08));
+    position: relative;
 }
-.contact-map iframe { width: 100%; height: 260px; border: 0; display: block; filter: grayscale(0.15); }
+.contact-map svg { width: 100%; height: 260px; display: block; }
+.map-fake-note {
+    position: absolute; bottom: 0.6rem; right: 0.8rem;
+    font-size: 0.68rem; color: var(--ink-soft); background: rgba(255,255,255,0.75);
+    padding: 0.15rem 0.5rem; border-radius: 999px;
+}
 .contact-form { display: flex; flex-direction: column; gap: 0.9rem; }
 .contact-form input, .contact-form textarea {
     padding: 0.85rem 1rem; border-radius: var(--radius-sm);
