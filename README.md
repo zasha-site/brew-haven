@@ -40,7 +40,7 @@ Brew Haven is a fictional coffee shop landing page built to demonstrate a warm, 
 ## Running Locally
 
 1. Clone or download this repository
-2. .Clone the repository and open it using VS Code Live Server.
+2. open it using VS Code Live Server.
 
 ## Credits
 
