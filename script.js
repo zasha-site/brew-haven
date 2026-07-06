@@ -1,11 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     /* ---------- Loader ---------- */
+    // Prevent the browser from auto-restoring a previous scroll position
+    // (this was causing the site to "jump" straight to a lower section on load)
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+
     const loader = document.querySelector(".loader");
+    document.documentElement.classList.add("loading");
+
+    function revealSite() {
+        loader.classList.add("hide");
+        document.documentElement.classList.remove("loading");
+        window.scrollTo(0, 0);
+    }
     window.addEventListener("load", () => {
-        setTimeout(() => loader.classList.add("hide"), 500);
+        setTimeout(revealSite, 600);
     });
-    setTimeout(() => loader.classList.add("hide"), 1800);
+    setTimeout(revealSite, 2200);
 
     /* ---------- Dark mode ---------- */
     const darkBtn = document.getElementById("darkMode");
@@ -47,6 +59,16 @@ document.addEventListener("DOMContentLoaded", () => {
             // avoid triggering when clicking the fav heart button on top of the image
             if (e.target.closest(".fav")) return;
             box.classList.toggle("flipped");
+        });
+    });
+
+    /* ---------- Playful "pop" animation on any image click ---------- */
+    document.querySelectorAll(".image-box, .space-photo, .service-media").forEach(el => {
+        el.addEventListener("click", (e) => {
+            if (e.target.closest(".fav")) return;
+            el.classList.remove("img-pop");
+            void el.offsetWidth; // restart animation if clicked again quickly
+            el.classList.add("img-pop");
         });
     });
 
@@ -275,6 +297,83 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast("Message sent — we'll get back to you soon!");
         contactForm.reset();
     });
+
+    /* ---------- Reveal Menu (hidden until "Explore Menu" / nav link click) ---------- */
+    const menuWrapper = document.getElementById("menuWrapper");
+    const menuSectionIds = ["hot-drinks", "cold-drinks", "desserts", "reviews"];
+
+    function revealMenuAndScrollTo(targetId) {
+        const wasHidden = !menuWrapper.classList.contains("revealed");
+        menuWrapper.classList.remove("menu-hidden");
+        menuWrapper.classList.add("revealed");
+
+        const spaceSection = document.getElementById("our-space");
+        if (spaceSection) spaceSection.classList.add("space-hidden");
+        const servicesSection = document.getElementById("services");
+        if (servicesSection) servicesSection.classList.add("space-hidden");
+        const contactSection = document.getElementById("contact");
+        if (contactSection) contactSection.classList.add("space-hidden");
+
+        const target = document.getElementById(targetId);
+        // give the browser a moment to lay out the newly-revealed content
+        setTimeout(() => {
+            target.scrollIntoView({ behavior: "smooth" });
+        }, wasHidden ? 60 : 0);
+    }
+
+    // "Contact" nav link / "Visit Us" button always bring the Contact section back,
+    // even if it was hidden while browsing the menu.
+    document.querySelectorAll('a[href="#contact"]').forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const contactSection = document.getElementById("contact");
+            contactSection.classList.remove("space-hidden");
+            setTimeout(() => contactSection.scrollIntoView({ behavior: "smooth" }), 60);
+        });
+    });
+
+    // "Home" nav link / logo resets back to the landing view (Hero + Our Space)
+    document.querySelectorAll('a[href="#home"]').forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            menuWrapper.classList.remove("revealed");
+            menuWrapper.classList.add("menu-hidden");
+            const spaceSection = document.getElementById("our-space");
+            if (spaceSection) spaceSection.classList.remove("space-hidden");
+            const servicesSection = document.getElementById("services");
+            if (servicesSection) servicesSection.classList.remove("space-hidden");
+            const contactSection = document.getElementById("contact");
+            if (contactSection) contactSection.classList.remove("space-hidden");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        const targetId = link.getAttribute("href").slice(1);
+        if (menuSectionIds.includes(targetId)) {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                revealMenuAndScrollTo(targetId);
+            });
+        }
+    });
+
+    /* ---------- Scroll reveal (dynamic entrance as sections come into view) ---------- */
+    const revealTargets = document.querySelectorAll(
+        ".section-head, .card, .review-card, .contact-info, .contact-form, .space-photo, .service-card"
+    );
+    revealTargets.forEach(el => el.classList.add("reveal"));
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("in-view");
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+    revealTargets.forEach(el => revealObserver.observe(el));
 
     /* ---------- init ---------- */
     renderCart();
