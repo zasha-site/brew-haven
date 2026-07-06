@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,9 +22,9 @@
 </div>
 
 <header class="navbar">
-    <div class="logo">
+    <a href="#home" class="logo" id="logoHome">
         <span class="logo-mark">☕</span> Brew Haven
-    </div>
+    </a>
 
     <div class="search-wrap">
         <input type="text" id="search" placeholder="Search coffee...">
@@ -93,19 +92,78 @@
 <!-- Hero -->
 <section id="home" class="hero">
     <div class="hero-media">
-        <img src="images/hero.png" alt="Brew Haven cafe interior">
+        <img src="images/hero.png" alt="Brew Haven cafe interior" onerror="this.parentElement.classList.add('hero-img-fallback')">
+        <span class="hero-fallback-msg">Add images/hero.png to see this photo</span>
         <div class="hero-overlay"></div>
         <div class="hero-text">
-            <p class="eyebrow hero-fade" style="--delay:0s">Brewed daily, since sunrise</p>
-            <h1 class="hero-fade" style="--delay:0.15s">Premium Coffee<br>Premium People</h1>
-            <p class="hero-desc hero-fade" style="--delay:0.3s">Enjoy the best coffee made from premium beans with a cozy atmosphere and delicious desserts.</p>
-            <div class="hero-actions hero-fade" style="--delay:0.45s">
+            <h1 class="hero-fade" style="--delay:0s">Premium Coffee<br>Premium People</h1>
+            <p class="hero-desc hero-fade" style="--delay:0.15s">Enjoy the best coffee made from premium beans with a cozy atmosphere and delicious desserts.</p>
+            <div class="hero-actions hero-fade" style="--delay:0.3s">
                 <a href="#hot-drinks" class="btn btn-primary">Explore Menu</a>
                 <a href="#contact" class="btn btn-ghost">Visit Us</a>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Our Space -->
+<section id="our-space" class="space-section">
+    <div class="section-head">
+        <p class="eyebrow">The Vibe</p>
+        <h2>Our Space</h2>
+    </div>
+    <div class="space-gallery">
+        <div class="space-photo">
+            <img src="images/space1.png" alt="Brew Haven lounge seating" onerror="this.parentElement.classList.add('img-fallback')">
+            <span class="image-fallback-name">space1.png</span>
+        </div>
+        <div class="space-photo">
+            <img src="images/space2.png" alt="Brew Haven archway lounge" onerror="this.parentElement.classList.add('img-fallback')">
+            <span class="image-fallback-name">space2.png</span>
+        </div>
+        <div class="space-photo">
+            <img src="images/space3.png" alt="Brew Haven cozy corner" onerror="this.parentElement.classList.add('img-fallback')">
+            <span class="image-fallback-name">space3.png</span>
+        </div>
+    </div>
+</section>
+
+<!-- Services -->
+<section id="services" class="services-section">
+    <div class="section-head">
+        <p class="eyebrow">What We Offer</p>
+        <h2>Beyond the Cup</h2>
+    </div>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-media">
+                <img src="images/catering.png" alt="Brew Haven catering spread" onerror="this.parentElement.classList.add('img-fallback')">
+                <span class="image-fallback-name">catering.png</span>
+            </div>
+            <h3>Catering</h3>
+            <p>Delicious Desserts and handcrafted beverages for events of all sizes.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-media">
+                <img src="images/events.png" alt="Brew Haven private event setup" onerror="this.parentElement.classList.add('img-fallback')">
+                <span class="image-fallback-name">events.png</span>
+            </div>
+            <h3>Events</h3>
+            <p>Host your private celebrations, corporate gatherings, and special occasions at Brew Haven.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-media">
+                <img src="images/workshop.png" alt="Brew Haven latte art workshop" onerror="this.parentElement.classList.add('img-fallback')">
+                <span class="image-fallback-name">workshop.png</span>
+            </div>
+            <h3>Workshops</h3>
+            <p>Learn coffee brewing, latte art, and barista skills through hands-on workshops.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Menu (hidden until "Explore Menu" is clicked) -->
+<div id="menuWrapper" class="menu-hidden">
 
 <!-- Hot Coffee -->
 <section id="hot-drinks" class="menu-section">
@@ -642,15 +700,26 @@
     </div>
 </section>
 
+</div>
+<!-- /menuWrapper -->
+
 <!-- Contact -->
 <section id="contact" class="contact-section">
     <div class="contact-grid">
         <div class="contact-info">
             <p class="eyebrow">05 — Contact</p>
             <h2>Visit Brew Haven</h2>
-            <p class="contact-line">📍 14 Roastery Street, Downtown</p>
+            <p class="contact-line">📍 14 Roastery Street, Downtown, Cairo</p>
             <p class="contact-line">🕐 Open daily, 7am – 10pm</p>
             <p class="contact-line">📞 +20 XXX XXX XXXX</p>
+            <div class="contact-map">
+                <iframe
+                    src="https://www.google.com/maps?q=14+Roastery+Street+Downtown+Cairo&output=embed"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Brew Haven location map">
+                </iframe>
+            </div>
         </div>
         <form class="contact-form" id="contactForm">
             <input type="text" placeholder="Your name" required>
@@ -662,7 +731,6 @@
 </section>
 
 <footer class="site-footer">
-    <p>☕ Brew Haven — Fresh Coffee Every Day</p>
     <p class="footer-small">© 2026 Brew Haven. All rights reserved.</p>
 </footer>
 
