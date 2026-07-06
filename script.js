@@ -62,16 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    /* ---------- Playful "pop" animation on any image click ---------- */
-    document.querySelectorAll(".space-photo, .service-media").forEach(el => {
-        el.addEventListener("click", (e) => {
-            if (e.target.closest(".fav")) return;
-            el.classList.remove("img-pop");
-            void el.offsetWidth; // restart animation if clicked again quickly
-            el.classList.add("img-pop");
-        });
-    });
-
     /* ---------- Search filter + highlight ---------- */
     const searchInput = document.getElementById("search");
     const allCards = document.querySelectorAll(".card");
