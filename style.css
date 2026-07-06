@@ -476,8 +476,19 @@ html.loading, html.loading body { overflow: hidden; height: 100%; }
 /* ============ Scroll reveal ============ */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms ease, transform 700ms cubic-bezier(.4,0,.2,1); }
 .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+.reveal-img {
+    opacity: 0;
+    transform: translateY(50px) scale(0.82) rotate(-4deg);
+    transition:
+        opacity 750ms cubic-bezier(.34,1.56,.64,1),
+        transform 750ms cubic-bezier(.34,1.56,.64,1);
+    transition-delay: var(--img-delay, 0ms);
+}
+.reveal-img.in-view { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+
 @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; transition: none; }
+    .reveal, .reveal-img { opacity: 1; transform: none; transition: none; }
 }
 
 /* ============ Toast ============ */
