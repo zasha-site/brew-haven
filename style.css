@@ -35,6 +35,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 84px; }
 
 body {
     background: var(--bg);
@@ -81,14 +82,15 @@ img { display: block; max-width: 100%; }
 .btn-ghost:hover { border-color: var(--ink); transform: translateY(-2px); }
 
 /* ============ Loader ============ */
+html.loading, html.loading body { overflow: hidden; height: 100%; }
 .loader {
     position: fixed; inset: 0; z-index: 999;
     background: var(--bg);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 1.2rem;
-    transition: opacity 600ms ease, visibility 600ms ease;
+    transition: opacity 700ms ease, visibility 700ms ease, transform 700ms ease;
 }
-.loader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader.hide { opacity: 0; visibility: hidden; pointer-events: none; transform: scale(1.04); }
 .loader h1 { font-size: 1.6rem; letter-spacing: 0.02em; color: var(--ink); }
 .loader-cup { position: relative; width: 46px; height: 36px; }
 .loader-cup::before {
@@ -283,7 +285,12 @@ img { display: block; max-width: 100%; }
     position: relative; width: 100%; height: 92vh; min-height: 560px;
     border-radius: 0; overflow: hidden; box-shadow: none;
 }
-.hero-media img { width: 100%; height: 100%; object-fit: cover; }
+.hero-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms ease; }
+.hero-media:hover img { transform: scale(1.08); }
+.hero-fallback-msg { display: none; }
+.hero-img-fallback { background: linear-gradient(135deg, #EFE0CC, #D8B98F); display: flex; align-items: center; justify-content: center; }
+.hero-img-fallback img { display: none; }
+.hero-img-fallback .hero-fallback-msg { display: block; color: var(--ink-soft); font-size: 0.9rem; letter-spacing: 0.02em; }
 .hero-overlay {
     position: absolute; inset: 0;
     background: linear-gradient(90deg, rgba(20,14,10,0.05) 0%, rgba(20,14,10,0.05) 45%, rgba(20,14,10,0.55) 72%, rgba(20,14,10,0.6) 100%);
@@ -342,7 +349,7 @@ img { display: block; max-width: 100%; }
     padding: 1.4rem;
     transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
-.card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: transparent; }
+.card:hover { transform: translateY(-10px) scale(1.015); box-shadow: var(--shadow); border-color: transparent; }
 
 .fav {
     position: absolute; top: 0.9rem; right: 0.9rem; z-index: 2;
@@ -366,11 +373,20 @@ img { display: block; max-width: 100%; }
     background: var(--bg-alt);
     display: flex; align-items: center; justify-content: center;
 }
-.image-box img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; transition: opacity var(--transition); }
+.image-box img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; transition: opacity var(--transition), transform 450ms ease; }
 .image-box .img-back { opacity: 0; }
 .image-box:hover { cursor: pointer; }
+.image-box:hover img { transform: scale(1.12); }
 .image-box.flipped .img-front { opacity: 0; }
 .image-box.flipped .img-back { opacity: 1; }
+.image-box.img-pop img, .space-photo.img-pop img, .service-media.img-pop img { animation: imgPop 500ms cubic-bezier(.34,1.56,.64,1); }
+@keyframes imgPop {
+    0% { transform: scale(1); }
+    30% { transform: scale(0.88); }
+    60% { transform: scale(1.16); }
+    80% { transform: scale(0.97); }
+    100% { transform: scale(1); }
+}
 .image-fallback-icon { display: none; font-size: 2.4rem; }
 .image-fallback-name {
     display: none;
@@ -429,6 +445,11 @@ img { display: block; max-width: 100%; }
 .contact-section { background: var(--bg-alt); }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
 .contact-line { color: var(--ink-soft); margin-top: 0.7rem; }
+.contact-map {
+    margin-top: 1.6rem; border-radius: var(--radius-sm); overflow: hidden;
+    border: 1px solid var(--line); box-shadow: var(--shadow-sm, 0 6px 18px rgba(0,0,0,0.08));
+}
+.contact-map iframe { width: 100%; height: 260px; border: 0; display: block; filter: grayscale(0.15); }
 .contact-form { display: flex; flex-direction: column; gap: 0.9rem; }
 .contact-form input, .contact-form textarea {
     padding: 0.85rem 1rem; border-radius: var(--radius-sm);
@@ -445,6 +466,13 @@ img { display: block; max-width: 100%; }
     border-top: 1px solid var(--line);
 }
 .footer-small { font-size: 0.76rem; margin-top: 0.4rem; opacity: 0.7; }
+
+/* ============ Scroll reveal ============ */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms ease, transform 700ms cubic-bezier(.4,0,.2,1); }
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+}
 
 /* ============ Toast ============ */
 .toast {
@@ -467,3 +495,70 @@ img { display: block; max-width: 100%; }
     .hero-actions { justify-content: center; }
     .contact-grid { grid-template-columns: 1fr; }
 }
+/* ============ Menu reveal (hidden until "Explore Menu" is clicked) ============ */
+.menu-hidden { display: none; }
+.menu-hidden.revealed {
+    display: block;
+    animation: menuFadeIn 600ms ease both;
+}
+@keyframes menuFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ Our Space (ambiance gallery) ============ */
+.space-section { padding: 7vh 4vw; max-width: 1300px; margin: 0 auto; }
+.space-gallery {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem;
+    margin-top: 2.2rem;
+}
+.space-photo {
+    position: relative; aspect-ratio: 3 / 4; border-radius: var(--radius, 16px);
+    overflow: hidden; background: var(--bg-alt);
+    box-shadow: 0 12px 30px rgba(90, 58, 34, 0.12);
+}
+.space-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 500ms ease; }
+.space-photo:hover img { transform: scale(1.12); }
+.space-photo.img-fallback { background: linear-gradient(135deg, var(--bg-alt), var(--line)); display: flex; align-items: center; justify-content: center; }
+.space-photo.img-fallback img { display: none; }
+.space-photo.img-fallback .image-fallback-name { display: block; color: var(--ink-soft); font-size: 0.8rem; }
+.space-photo .image-fallback-name { display: none; }
+
+@media (max-width: 720px) {
+    .space-gallery { grid-template-columns: 1fr; }
+}
+
+/* Our Space hides once the menu has been explored */
+.space-hidden { display: none; }
+
+/* ============ Services (Catering / Events / Workshops) ============ */
+.services-section { padding: 7vh 4vw; max-width: 1300px; margin: 0 auto; }
+.services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem;
+    margin-top: 2.2rem;
+}
+.service-card {
+    background: var(--white, #fff); border: 1px solid var(--line);
+    border-radius: var(--radius, 16px); padding: 2.2rem 1.8rem;
+    text-align: center; transition: transform var(--transition), box-shadow var(--transition);
+}
+.service-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: var(--shadow); }
+.service-card h3 { font-family: var(--font-display, serif); font-size: 1.15rem; margin-bottom: 0.7rem; }
+.service-card p { color: var(--ink-soft); font-size: 0.92rem; line-height: 1.6; }
+
+@media (max-width: 720px) {
+    .services-grid { grid-template-columns: 1fr; }
+}
+
+/* Workshop card image */
+.service-media {
+    position: relative; aspect-ratio: 4 / 4.6; border-radius: var(--radius-sm, 10px);
+    overflow: hidden; margin-bottom: 1.4rem; background: var(--bg-alt);
+}
+.service-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 550ms cubic-bezier(.4,0,.2,1); }
+.service-card:hover .service-media img { transform: scale(1.14); }
+.service-media.img-fallback { background: linear-gradient(135deg, var(--bg-alt), var(--line)); display: flex; align-items: center; justify-content: center; }
+.service-media.img-fallback img { display: none; }
+.service-media.img-fallback .image-fallback-name { display: block; color: var(--ink-soft); font-size: 0.78rem; }
+.service-media .image-fallback-name { display: none; }
+
