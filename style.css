@@ -479,13 +479,13 @@ html.loading, html.loading body { overflow: hidden; height: 100%; }
 
 .reveal-img {
     opacity: 0;
-    transform: translateY(50px) scale(0.82) rotate(-4deg);
+    transform: translateY(18px) scale(0.97);
     transition:
-        opacity 750ms cubic-bezier(.34,1.56,.64,1),
-        transform 750ms cubic-bezier(.34,1.56,.64,1);
+        opacity 450ms ease,
+        transform 450ms ease;
     transition-delay: var(--img-delay, 0ms);
 }
-.reveal-img.in-view { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+.reveal-img.in-view { opacity: 1; transform: translateY(0) scale(1); }
 
 @media (prefers-reduced-motion: reduce) {
     .reveal, .reveal-img { opacity: 1; transform: none; transition: none; }
