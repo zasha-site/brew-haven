@@ -29,21 +29,18 @@ Brew Haven is a fictional coffee shop landing page built to demonstrate a warm, 
 
 ## Project Structure
 
-```
-brew-haven/
+```brew-haven/
 ├── index.html
 ├── style.css
 ├── script.js
 └── images/
-    ├── hero.png
-    ├── space1.png, space2.png, space3.png
-    ├── catering.png, events.png, workshop.png
+
 ```
 
 ## Running Locally
 
 1. Clone or download this repository
-2. Open `index.html` directly in your browser — no build step or server required
+2.Clone the repository and open it using **VS Code Live Server**.
 
 ## Credits
 
