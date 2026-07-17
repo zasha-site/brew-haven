@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     /* ---------- Loader ---------- */
-    // Prevent the browser from auto-restoring a previous scroll position
-    // (this was causing the site to "jump" straight to a lower section on load)
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
 
@@ -53,10 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ---------- Image toggle (click to swap front/back photo) ---------- */
     document.querySelectorAll(".image-box").forEach(box => {
-        // only toggle if there's an actual second image (skip single-image / fallback boxes)
         if (box.classList.contains("single")) return;
         box.addEventListener("click", (e) => {
-            // avoid triggering when clicking the fav heart button on top of the image
             if (e.target.closest(".fav")) return;
             box.classList.toggle("flipped");
         });
@@ -66,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("search");
     const allCards = document.querySelectorAll(".card");
 
-    // store original title text so we can safely re-highlight without accumulating <mark> tags
     allCards.forEach(card => {
         const h3 = card.querySelector("h3");
         h3.dataset.original = h3.textContent;
@@ -98,8 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ---------- Favorites ---------- */
     let favorites = [];
     const favItemsEl = document.getElementById("favItems");
-    // clicking the ♡ on any card adds/removes it from the favorites list
-    // shown alongside the order ticket inside the cart drawer
 
     function getCardImage(card) {
         const box = card.querySelector(".image-box");
@@ -142,6 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 renderFavorites();
                 syncFavButtons();
                 showToast(removedName + " removed from favorites");
+                saveState();
             });
         });
 
@@ -154,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (idx > -1) favorites.splice(idx, 1);
                 renderFavorites();
                 syncFavButtons();
+                saveState();
             });
         });
     }
@@ -186,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.textContent = "♥";
             }
             renderFavorites();
+            saveState();
         });
     });
 
@@ -239,6 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const idx = Number(btn.dataset.idx);
                 cart.splice(idx, 1);
                 renderCart();
+                saveState();
             });
         });
     }
@@ -248,6 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (existing) existing.qty += 1;
         else cart.push({ name, price, qty: 1, img: img || null });
         renderCart();
+        saveState();
     }
 
     document.querySelectorAll(".add-cart").forEach(btn => {
@@ -277,8 +275,25 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast("Order placed — see you soon!");
         cart = [];
         renderCart();
+        saveState();
         setTimeout(closeCart, 900);
     });
+
+    /* ---------- Persistence (cart + favorites survive reload / revisit) ---------- */
+    function saveState() {
+        try {
+            localStorage.setItem("bh-cart", JSON.stringify(cart));
+            localStorage.setItem("bh-favorites", JSON.stringify(favorites));
+        } catch (e) { /* storage unavailable, ignore */ }
+    }
+    function loadState() {
+        try {
+            const savedCart = localStorage.getItem("bh-cart");
+            const savedFav = localStorage.getItem("bh-favorites");
+            if (savedCart) cart = JSON.parse(savedCart);
+            if (savedFav) favorites = JSON.parse(savedFav);
+        } catch (e) { /* ignore corrupt storage */ }
+    }
 
     /* ---------- Contact form ---------- */
     const contactForm = document.getElementById("contactForm");
@@ -288,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
         contactForm.reset();
     });
 
-    /* ---------- Reveal Menu (hidden until "Explore Menu" / nav link click) ---------- */
+    /* ---------- Reveal Menu (hidden until "Explore Menu" / "Menu" link click) ---------- */
     const menuWrapper = document.getElementById("menuWrapper");
     const menuSectionIds = ["hot-drinks", "cold-drinks", "desserts", "reviews"];
 
@@ -305,14 +320,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (contactSection) contactSection.classList.add("space-hidden");
 
         const target = document.getElementById(targetId);
-        // give the browser a moment to lay out the newly-revealed content
         setTimeout(() => {
             target.scrollIntoView({ behavior: "smooth" });
         }, wasHidden ? 60 : 0);
     }
 
-    // "Contact" nav link / "Visit Us" button always bring the Contact section back,
-    // even if it was hidden while browsing the menu.
     document.querySelectorAll('a[href="#contact"]').forEach(link => {
         link.addEventListener("click", (e) => {
             e.preventDefault();
@@ -322,7 +334,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // "Home" nav link / logo resets back to the landing view (Hero + Our Space)
     document.querySelectorAll('a[href="#home"]').forEach(link => {
         link.addEventListener("click", (e) => {
             e.preventDefault();
@@ -338,6 +349,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // "Menu" link opens the menu (defaults to Hot Coffee)
+    document.querySelectorAll('a[href="#menu"]').forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            revealMenuAndScrollTo("hot-drinks");
+        });
+    });
+
     document.querySelectorAll('a[href^="#"]').forEach(link => {
         const targetId = link.getAttribute("href").slice(1);
         if (menuSectionIds.includes(targetId)) {
@@ -348,13 +367,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /* ---------- Scroll reveal (dynamic entrance as sections come into view) ---------- */
+    /* ---------- Scroll reveal ---------- */
     const revealTargets = document.querySelectorAll(
         ".section-head, .card, .review-card, .contact-info, .contact-form, .service-card"
     );
     revealTargets.forEach(el => el.classList.add("reveal"));
 
-    // Images themselves get a bolder, distinct "flying in" entrance
     const imageRevealTargets = document.querySelectorAll(".image-box, .service-media, .hero-media, .space-photo");
     imageRevealTargets.forEach((el, i) => {
         el.classList.add("reveal-img");
@@ -372,8 +390,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     revealTargets.forEach(el => revealObserver.observe(el));
 
-    // Images: toggle in/out every time they enter or leave the viewport,
-    // in either scroll direction (up or down)
     const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             entry.target.classList.toggle("in-view", entry.isIntersecting);
@@ -383,6 +399,8 @@ document.addEventListener("DOMContentLoaded", () => {
     imageRevealTargets.forEach(el => imageObserver.observe(el));
 
     /* ---------- init ---------- */
+    loadState();
     renderCart();
     renderFavorites();
+    syncFavButtons();
 });
