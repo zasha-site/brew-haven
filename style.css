@@ -1,4 +1,3 @@
-/* ============ Tokens ============ */
 :root {
     --bg: #FAF6EF;
     --bg-alt: #F1E9DC;
@@ -133,8 +132,8 @@ html.loading, html.loading body { overflow: hidden; height: 100%; }
 }
 #search:focus { border-color: var(--accent); }
 
-.navbar nav { margin-left: auto; }
-.navbar nav ul { display: flex; gap: 1.8rem; }
+.navbar nav { margin-left: auto; margin-right: 0.5rem; }
+.navbar nav ul { display: flex; gap: 1.6rem; }
 .navbar nav a {
     font-size: 0.92rem; color: var(--ink-soft);
     position: relative; transition: color var(--transition);
@@ -147,7 +146,7 @@ html.loading, html.loading body { overflow: hidden; height: 100%; }
 .navbar nav a:hover { color: var(--ink); }
 .navbar nav a:hover::after { width: 100%; }
 
-.icons { display: flex; align-items: center; gap: 0.9rem; }
+.icons { display: flex; align-items: center; gap: 0.7rem; }
 #darkMode {
     width: 38px; height: 38px; border-radius: 50%;
     border: 1px solid var(--line); font-size: 1rem;
@@ -162,6 +161,7 @@ html.loading, html.loading body { overflow: hidden; height: 100%; }
     border: 1px solid var(--line); font-size: 0.95rem;
     transition: border-color var(--transition);
 }
+.cart svg { width: 19px; height: 19px; }
 .cart:hover { border-color: var(--accent); }
 #cart-count {
     background: var(--ink); color: var(--bg);
@@ -319,14 +319,6 @@ html.loading, html.loading body { overflow: hidden; height: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
     .hero-fade { animation: none; opacity: 1; transform: none; }
-}
-
-@media (max-width: 720px) {
-    .hero-media { height: 100vh; }
-    .hero-text { align-items: center; text-align: center; padding: 2rem 1.4rem; }
-    .hero-text h1, .hero-desc { max-width: 100%; }
-    .hero-actions { justify-content: center; }
-    .hero-overlay { background: linear-gradient(180deg, rgba(20,14,10,0.3) 0%, rgba(20,14,10,0.55) 55%, rgba(20,14,10,0.65) 100%); }
 }
 
 /* ============ Menu Sections ============ */
@@ -496,15 +488,33 @@ html.loading, html.loading body { overflow: hidden; height: 100%; }
 
 /* ============ Responsive ============ */
 @media (max-width: 900px) {
-    .navbar { flex-wrap: wrap; gap: 1rem; }
-    .navbar nav { order: 3; width: 100%; }
-    .navbar nav ul { justify-content: space-between; gap: 0.8rem; flex-wrap: wrap; }
-    .search-wrap { order: 2; max-width: none; flex-basis: 100%; }
+    .navbar { flex-wrap: wrap; gap: 0.8rem; padding: calc(1.6rem + env(safe-area-inset-top, 0px)) 4vw 1rem; }
+    .logo { order: 1; }
+    .icons { order: 2; margin-left: auto; gap: 0.5rem; }
+    .navbar nav { order: 3; width: 100%; margin: 0; }
+    .navbar nav ul { justify-content: flex-start; gap: 1.4rem; }
+    .search-wrap { order: 4; max-width: none; flex-basis: 100%; }
+    #darkMode { width: 34px; height: 34px; }
+    .cart { padding: 0.4rem 0.7rem; }
     .hero { padding-top: 4vh; }
     .hero-actions { justify-content: center; }
     .contact-grid { grid-template-columns: 1fr; }
 }
-/* ============ Menu reveal (hidden until "Explore Menu" is clicked) ============ */
+
+@media (max-width: 480px) {
+    .hero-media {
+        width: 100%;
+        aspect-ratio: 375 / 312;
+        height: auto;
+        min-height: 0;
+    }
+    .hero-text { align-items: center; text-align: center; padding: 1.6rem 1.2rem; }
+    .hero-text h1, .hero-desc { max-width: 100%; }
+    .hero-actions { justify-content: center; }
+    .hero-overlay { background: linear-gradient(180deg, rgba(20,14,10,0.3) 0%, rgba(20,14,10,0.55) 55%, rgba(20,14,10,0.65) 100%); }
+}
+
+/* ============ Menu reveal (hidden until "Explore Menu" / "Menu" is clicked) ============ */
 .menu-hidden { display: none; }
 .menu-hidden.revealed {
     display: block;
@@ -570,4 +580,3 @@ html.loading, html.loading body { overflow: hidden; height: 100%; }
 .service-media.img-fallback img { display: none; }
 .service-media.img-fallback .image-fallback-name { display: block; color: var(--ink-soft); font-size: 0.78rem; }
 .service-media .image-fallback-name { display: none; }
-
