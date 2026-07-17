@@ -161,12 +161,12 @@ html.loading, html.loading body { overflow: hidden; height: 100%; }
     border: 1px solid var(--line); font-size: 0.95rem;
     transition: border-color var(--transition);
 }
-.cart svg { width: 19px; height: 19px; }
+.cart svg { width: 23px; height: 23px; flex-shrink: 0; }
 .cart:hover { border-color: var(--accent); }
 #cart-count {
     background: var(--ink); color: var(--bg);
     font-family: var(--font-mono); font-size: 0.7rem;
-    width: 18px; height: 18px; border-radius: 50%;
+    width: 18px; height: 18px; min-width: 18px; flex-shrink: 0; border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center;
 }
 
